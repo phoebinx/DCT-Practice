@@ -47,3 +47,9 @@ public class MinWindowSubstring {
 	}
 
 }
+//arr saves number of occurances of characters in current window. between start and end.
+//counter saves those characters that are part of substring, if arr[c] > 0 that means that it is part of substring.
+
+// find a substring which will havppen if counter is 0
+//while couter is 0, increase start and add arr[start[c]]] value as you are removing it from window.
+//if you get arr[start][c] value ? 0, you have removed the char of substring so you need to increase the counter.

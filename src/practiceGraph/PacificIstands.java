@@ -90,5 +90,5 @@ public class PacificIstands {
 }
 
 //if we can find all nodes that can be reached from pacific edge (row or column is 0) and altantic edge
-//(row or column is max), these nodes are the position where water can flow to both pacific 
+//(row or column is max) by doing a dfs, these nodes are the position where water can flow to both pacific 
 //and atlantic

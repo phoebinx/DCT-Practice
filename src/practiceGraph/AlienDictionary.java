@@ -9,8 +9,8 @@ import java.util.Stack;
 //https://zhuhan0.blogspot.com/2017/06/leetcode-269-alien-dictionary.html
 
 public class AlienDictionary {
-//	String[] arr = { "wrt", "wrf", "er", "ett", "rftt" };
-	String arr[] = { "z", "x", "z" };
+	String[] arr = { "wrt", "wrf", "er", "ett", "rftt" };
+//	String arr[] = { "z", "x", "z" };
 	HashMap<Character, Set<Character>> hm = new HashMap<>(); // adjacency list graph
 	Stack<Character> stack = new Stack<>();
 
