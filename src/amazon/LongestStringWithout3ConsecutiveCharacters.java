@@ -1,55 +1,72 @@
 package amazon;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+
 //https://leetcode.com/discuss/interview-question/330356
 public class LongestStringWithout3ConsecutiveCharacters {
-	public static void main(String args[]) {
-		int A = 1, B = 1, C = 6;
-		LongestStringWithout3ConsecutiveCharacters obj = new LongestStringWithout3ConsecutiveCharacters();
-		System.out.println(obj.getCombo(A,B,C));
+	class Node {
+		int val;
+		char letter;
+
+		Node(int val, char letter) {
+			this.val = val;
+			this.letter = letter;
+		}
 	}
-	
-	public String getCombo(int A, int B, int C) {
-		StringBuilder sb = new StringBuilder();
-		while (A!=0 && B!=0 && C!=0) {
-			sb.append("abc");
-			A=A-1;
-			B=B-1;
-			C=C-1;
-		}
+
+	public static void main(String args[]) {
+		LongestStringWithout3ConsecutiveCharacters obj = new LongestStringWithout3ConsecutiveCharacters();
+		int A = 1, B = 1, C = 6;
+		Map<Character, Integer> map = obj.populateMap(A, B, C);
+		System.out.println(obj.getCombo(map));
+	}
+
+	public String getCombo(Map<Character, Integer> map) {
+		PriorityQueue<Node> pq = new PriorityQueue<Node>((n1, n2) -> {
+			return (n1.val - n2.val)*-1;
+		});
 		
-		while (A!=0) {
-			for (int i = 1;i<sb.length();i++) {
-				if (sb.charAt(i-1)!='a' && sb.charAt(i)!='a') {
-					sb.insert(i, 'a');
-					A=A-1;
-				} else {
-					continue;
-				}
+		for (Character c: map.keySet()) {
+			if (map.get(c)!=0) {
+				pq.offer(new Node(map.get(c),c));
 			}
 		}
-		while (B!=0) {
-			for (int i = 1;i<sb.length();i++) {
-				if (sb.charAt(i-1)!='b' && sb.charAt(i)!='b') {
-					sb.insert(i, 'b');
-					B=B-1;
-				} else {
-					continue;
+		StringBuilder sb = new StringBuilder();
+		while(!pq.isEmpty()) {
+			Node first = pq.poll();
+			if (sb.length()!=0 && sb.charAt(sb.length()-1) == first.letter) {
+				if (pq.isEmpty())
+					return sb.toString();
+				else {
+					Node second = pq.poll();
+					sb.append(second.letter);
+					second.val--;
+					if (second.val!=0)
+						pq.offer(second);
+					pq.offer(first);
+				}
+			} else {
+				int limit = Math.min(2, first.val);
+				for (int i = 0;i<limit;i++) { 
+					sb.append(first.letter);
+					first.val--;
+				}
+				if (first.val!=0) {
+					pq.offer(first);
 				}
 			}
-		}
-		while (C!=0) {
-			for (int i = 1;i<sb.length();i++) {
-				if (sb.charAt(i-1)!='c' && sb.charAt(i)!='c') {
-					sb.insert(i-1, "cc");
-					C=C-1;
-				} else if (sb.charAt(i-1)!='c' || sb.charAt(i)!='c'){
-					sb.insert(i, 'c');
-					C=C-1;
-				} else {
-					continue;
-				}
-			}
-			break;
 		}
 		return sb.toString();
 	}
+
+	public Map<Character, Integer> populateMap(int A, int B, int C) {
+		Map<Character, Integer> map = new HashMap<>();
+		map.put('a', A);
+		map.put('b', B);
+		map.put('c', C);
+		return map;
+	}
+
 }
