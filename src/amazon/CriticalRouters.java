@@ -66,10 +66,6 @@ public class CriticalRouters {
 		int n = 9;
 		int[][] connections = { { 0, 1 }, { 0, 2 }, { 1, 2 }, { 2, 3 }, { 3, 4 }, { 2, 5 }, { 5, 6 }, { 6, 7 },
 				{ 7, 8 }, { 8, 5 } };
-//		int n = 4;
-//		int[][] connections = { { 0, 1 }, { 1, 2 }, { 2, 0 }, { 1, 3 } };
-//		int n = 7;
-//		int[][] connections = { {0, 1}, {0, 2}, {1, 3}, {2, 3}, {2, 5}, {5, 6}, {3, 4} };
 		List<List<Integer>> graph = CreateGraph(n);
 		addEdge(graph, connections);
 

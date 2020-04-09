@@ -1,4 +1,4 @@
-package matrix;
+package amazon;
 
 import java.util.ArrayList;
 import java.util.List;
