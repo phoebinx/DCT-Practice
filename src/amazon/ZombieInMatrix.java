@@ -24,8 +24,6 @@ public class ZombieInMatrix {
 	}
 
 	public void calculateMaxDistance(int i, int j, int[][] matrix) {
-		if (i==2 && j==2)
-			System.out.println("here");
 		int max = 0;
 		int x[] = { 0, 0, -1, 1 };
 		int y[] = { -1, 1, 0, 0 };

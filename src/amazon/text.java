@@ -1,36 +1,49 @@
-package amazon;
+	package amazon;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class text {
 	public static void main(String args[]) {
-		int states []= {1,1,1,0,1,1,1,1};
-		int days = 3;
-		text obj = new  text();
-		System.out.println(obj.cellCompete(states, days));
+		String names[] = { "a(1)", "a(6)", "a", "a"};
+		String names2[] = { "doc", "doc", "doc(1)" };
+		text obj = new text();
+		for (String res : obj.fileNaming(names2)) {
+			System.out.println(res);
+		}
+	}
+
+	String[] fileNaming(String[] names) {
+		List<String> result = new ArrayList<>();
+		HashMap<String, Integer> map = new HashMap<>();
+		int val;
+		StringBuilder temp = new StringBuilder();
+		String tempName;
+		for (String name : names) {
+			if (map.containsKey(name)) {
+				val = map.get(name);
+				String str = name+'('+val+')';
+				while (map.containsKey(str)) {
+					val = val+1;
+					str = name+'('+val+')';
+				}
+				result.add(str);
+	            map.put(name,map.get(name)+1);
+	            map.put(str, 1);
+			
+			} else {
+				map.put(name, 1);
+				result.add(name);
+			}
+		}
+		return result.toArray(new String[] {});
 	}
 	
-	public List<Integer> cellCompete(int[] states, int days)
-	    {
-	        int curDay[] = states;
-	        int nextDay[] = new int[states.length];
-	        int count = days;
-	        int prev=0,next=0;
-	        while (count>0) {
-	            for (int i = 0;i<states.length;i++) {
-	                if (i==0) prev = 0;
-	                else prev = curDay[i-1];  
-	                if (i == states.length-1) next = 0;
-	                else next = curDay[i+1];
-	                
-	                if (prev == next) nextDay[i] = 0;
-	                else nextDay[i] = 1;
-	            }
-	            count = count-1;
-	            curDay = nextDay.clone();
-	        }
-	        Integer [] res =  Arrays.stream(curDay).boxed().toArray(Integer[]::new);
-	        return Arrays.asList(res);
-	    }
+	public void test1() {
+		HashSet<String> s = new HashSet<>();
+		s.add("g");
+	}
 }
